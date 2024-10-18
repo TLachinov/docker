@@ -1,3 +1,5 @@
+Salam Tural
+
 docker build .                    >>>>>>  so we need to run this command against Dockerfile and we should be under same folder (. means) where we have Dockerfile.
 docker build . --build-arg HTTP_PROXY="http://proxy.esl.cisco.com:80"     >>>>>> in case we are behind proxy we need to specify ARG in docker file.
 docker build . --t node:latest   >>>>>> builds image with repository as node and latest as TAG (--t flag). 
