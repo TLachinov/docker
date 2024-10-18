@@ -1,0 +1,62 @@
+docker build .                    >>>>>>  so we need to run this command against Dockerfile and we should be under same folder (. means) where we have Dockerfile.
+docker build . --build-arg HTTP_PROXY="http://proxy.esl.cisco.com:80"     >>>>>> in case we are behind proxy we need to specify ARG in docker file.
+docker build . --t node:latest   >>>>>> builds image with repository as node and latest as TAG (--t flag). 
+
+Note: When we build new image even using same dockerfile it creates new image check images names each time.
+
+docker images        >>>>>> we see all images that we build or we use from github.
+REPOSITORY        TAG            IMAGE ID          CREATED           SIZE
+<none>                 <none>      c4b0fdf295fe    32 hours ago    1.12GB
+aspnet                   1.0             455a37842216  4 months ago  224MB
+rasim-custom-image-2   latest      6b779f37aeee   4 months ago   214MB
+rasim-custom-image-1   latest      9e4bbc6d4104   4 months ago   197MB
+jenkins/jenkins        lts         0bd9f204ffc3   5 months ago   470MB
+nigelpoulton/gsd       first-ctr   08940915c1bd   4 years ago    127MB
+
+docker run -p 3000:80 c4b0fdf295fe    >>> we run container by using Image id (see above) and (-p means publish). Port 80 container port and port 3000 on physical machine.
+                                                                                                              in browser we run http://10.62.189.183:3000   it takes us to port 80.
+Note: Each time when we run this command it creates new container.
+Note: When we run above command its in attached mode which is default therefore it doesn’t prompt anything. 
+            Attached means we are attached to container output we are in listening to output of that container. 
+
+docker run -p 3000:80  -d  c4b0fdf295fe            >>>>>>>> run container in detached mode by using (-d flag ) in front of image.
+docker run -i - t  c4b0fdf295fe            >>>>>>>> run container in interactive mode means input something into container (-i flag) and combine it with creating terminal (-t flag).
+docker run -p 3000:80  --rm  c4b0fdf295fe   >>>>>> whenever container stops it automatically remove container (--rm flag ).
+docker run -p 3000:80  --name pythonapp  c4b0fdf295fe   >>>>>> Gives name to container (--name flag ).
+docker run -p 3000:80  --name pythonapp  node:latest    >>>>>> can run container with tag name instead of image ID (--name flag ).
+
+
+docker attach c4b0fdf295fe  
+docker attach vigorous_goldstine    
+Note: We can use above both commands (container name or image ID) by using attach command to attach already started container which will attach back to the container output.
+
+docker logs vigorous_goldstine
+docker logs -f  vigorous_goldstine
+Note: we can use above both commands in one using (-f) which means follow means attaching ourselfs to container to see container outputs. 
+
+docker ps         >>>>> we see only active processes (running containers).
+CONTAINER ID   IMAGE              COMMAND                       CREATED              STATUS             PORTS                                                           NAMES
+accc0f85e8b5   c4b0fdf295fe   "docker-entrypoint.s…"   12 seconds ago   Up 6 seconds   0.0.0.0:3000->80/tcp, :::3000->80/tcp   vigorous_goldstine
+
+docker ps -a         >>>>> we see all active and inactive processes (all containers).
+
+docker stop vigorous_goldstine    >>>>> stop container we use container name.
+
+docker start vigorous_goldstine    >>>>> start same container that we stopped we use container name.
+Note: With this command detached mode is default. 
+docker start  -a  vigorous_goldstine    >>>>> start same container that we stopped we use container name.
+Note: With this command we start in attached mode. 
+docker start  -a  - i  vigorous_goldstine    >>>>> start same container that we stopped we use container name.
+Note: With this command we start in attached mode and interactive mode. Means we can input and get output. 
+
+docker rm  vigorous_goldstine                   >>>>> it removes container but first we need to stop container then remove it.
+docker rm  vigorous_goldstine  <cont2> .. <cont n>
+
+docker rmi  c4b0fdf295fe                              >>>>> it removes image but first we need to stop container that uses this image then remove container then image .
+docker rmi  c4b0fdf295fe  <img 2> .. <img n>  
+docker image prune                                                   >>>>> it removes all unused images.
+
+docker image inspect c4b0fdf295fe        >>>>>> It inspect the image details how it is configured.
+
+docker cp  python/.   vigorous_goldstine:/test        >>>>>> copy from local host machine to container.
+docker cp  vigorous_goldstine:/test  python            >>>>>> copy from container to local host machine.
