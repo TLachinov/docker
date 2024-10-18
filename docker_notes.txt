@@ -60,3 +60,5 @@ docker image inspect c4b0fdf295fe        >>>>>> It inspect the image details how
 
 docker cp  python/.   vigorous_goldstine:/test        >>>>>> copy from local host machine to container.
 docker cp  vigorous_goldstine:/test  python            >>>>>> copy from container to local host machine.
+
+Salam
