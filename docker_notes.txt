@@ -63,3 +63,18 @@ docker image inspect c4b0fdf295fe        >>>>>> It inspect the image details how
 docker cp  python/.   vigorous_goldstine:/test        >>>>>> copy from local host machine to container.
 docker cp  vigorous_goldstine:/test  python            >>>>>> copy from container to local host machine.
 
+docker tag  node:latest rasimh542/my-repo:latest       >>>>>>> retagging the image before we push to Github.
+docker tag  fc28baf932c9 rasimh542/my-repo:latest    >>>>> in case it is none: none then we can use Image ID instead source to retagging.
+
+docker push rasimh542/my-repo:latest       >>>>>>> pushing the image to Github. When we push not all image copied as Github has main image it skip this part. 
+docker pull rasimh542/my-repo:latest       >>>>>>> pulling the image from Github.
+docker login
+docker logout
+Note: When pulling and pushing we need to login to Github from terminal. 
+
+docker search ubuntu          >>>>> search docker repository (docker hub) for image ubuntu.
+
+docker pull ubuntu          >>>>> download latest ubuntu version to my virtual machine.
+
+docker commit 03ac2096a946 rasim_test_image        >>>>>> Create image from container so we use container ID for that.
+
